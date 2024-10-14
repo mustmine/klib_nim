@@ -5,8 +5,15 @@
 #
 # To run these tests, simply execute `nimble test`.
 
-import unittest
+import std/unittest
 
-import klib_nim
-test "can add":
-  check add(5, 5) == 10
+import klib_nim/kthread
+
+test "kt_for":
+    var a = [1, 2, 3, 4]
+    proc squared(data: pointer, index: clong, thread_id: cint) {.cdecl.} =
+        var arr = cast[ptr array[4, int]](data)
+        arr[][index.int] = arr[][index.int] * arr[][index.int]
+    
+    kt_for(2, cast[ptr KtForFn](squared), a.addr, a.len.clong)
+    check(a == [1, 4, 9, 16])
