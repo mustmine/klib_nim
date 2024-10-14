@@ -1,2 +1,2 @@
 # klib_nim
-simple wrapper for klib
+simple [klib](https://github.com/attractivechaos/klib.git) wrapper for Nim
