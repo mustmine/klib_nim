@@ -1,4 +1,6 @@
+import os
 {.compile: "klib/kthread.c".}
+{.passC: "-I" & currentSourcePath().parentDir() .}
 
 # kt_for()
 type KtForFn* = proc (data: pointer, index: clong, thread_id: cint){.cdecl.}
